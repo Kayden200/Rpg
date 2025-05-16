@@ -1,0 +1,57 @@
+<GameScreen>:
+    player: player
+    enemy: enemy
+    joystick: joystick
+
+    Image:
+        source: 'assets/background.png'
+        size: root.size
+        pos: root.pos
+
+    Player:
+        id: player
+        source: 'assets/player_idle.png'
+        size_hint: None, None
+        size: 64, 64
+        pos: 300, 300
+
+    Enemy:
+        id: enemy
+        source: 'assets/enemy_idle.png'
+        size_hint: None, None
+        size: 64, 64
+        pos: 500, 300
+
+    Label:
+        text: f"HP: {player.health}  XP: {player.xp}  LVL: {player.level}"
+        size_hint: None, None
+        pos: 10, root.height - 30
+
+    Joystick:
+        id: joystick
+        size_hint: None, None
+        size: 120, 120
+        pos: 30, 30
+        knob: knob
+
+        Image:
+            id: base
+            source: 'assets/joystick_base.png'
+            size: root.size
+            center: root.center
+
+        Image:
+            id: knob
+            source: 'assets/joystick_knob.png'
+            size_hint: None, None
+            size: 40, 40
+            center: root.center
+
+    Button:
+        background_normal: 'assets/button_attack.png'
+        background_down: 'assets/button_attack.png'
+        size_hint: None, None
+        size: 80, 80
+        pos: root.width - 110, 30
+        on_press:
+            enemy.health -= 10 if enemy.collide_point(*player.center) else 0
